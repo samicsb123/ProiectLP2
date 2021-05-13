@@ -1,4 +1,12 @@
-"""  """
+"""
+Resurse folosite:
+https://realpython.com/python-speech-recognition/
+https://pypi.org/project/SpeechRecognition/
+https://www.youtube.com/watch?v=K_WbsFrPUCk
+https://pypi.org/project/pyttsx3/
+https://docs.python.org/3/library/re.html
+https://docs.python.org/3/library/webbrowser.html
+"""
 
 #Dam import la libariile de mai jos
 import speech_recognition as sr
@@ -10,6 +18,7 @@ import webbrowser
 
 
 #Am creat o functie care urmareste pattern-ul de la youtube ca sa dea play la o melodie.
+#Nu am gasit functia in vreo librarie care sa imi mearga, asa ca am facut-o de la 0.
 def playyt(text):
     html = urllib.request.urlopen("https://www.youtube.com/results?search_query=" + text.replace("play",'').replace(" ",''))
     video_ids = re.findall(r"watch\?v=(\S{11})",html.read().decode())
@@ -52,8 +61,8 @@ with sr.Microphone() as source:
         #in romana.
         #Dupa am stocat asta intr-o variabila numita "text"
         text = r.recognize_google(audio)
-        #Print mesajul audio sub forma de text.
-        # print("You said : {}".format(text))
+
+        #Am folosit un if ca sa vada scriptul pe ce comanda de sistem sa mearga.
         if "play" in text:
             playyt(text)
 
